@@ -2,7 +2,11 @@ from django.urls import path
 
 from . import views
 
-app_name = 'polls'
+app_name = 'polls'  # Espace de nom utilisée
+
+# pk (primary key) pour les vues générique
+# <type:name_variable> pour autres vues
+
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
     path('<int:pk>/', views.DetailView.as_view(), name='detail'),
