@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'authcustom.apps.AuthCustomConfig',
     'polls.apps.PollsConfig',  # Ajoute l'application dans les applications installées
     'django.contrib.admin',
     'django.contrib.auth',
