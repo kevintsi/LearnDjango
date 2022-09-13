@@ -3,9 +3,12 @@ from django.shortcuts import render, get_object_or_404, reverse
 from polls.models import Question, Choice
 from django.views import generic  # Import Generic Views
 from django.utils import timezone
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class IndexView(generic.ListView):
+class IndexView(LoginRequiredMixin, generic.ListView):
+
+    login_url = 'authcustom:login'
     # Nom du template à utiler . Par default utilise : "<app_name>/<model_name>_list.html"
     template_name = "polls/index.html"
     # Le nom de l'objet passé à la vue*
@@ -21,7 +24,9 @@ class IndexView(generic.ListView):
         ).order_by('-pub_date')[:5]  # *Cet objet retourné
 
 
-class DetailView(generic.DetailView):
+class DetailView(LoginRequiredMixin, generic.DetailView):
+
+    login_url = 'authcustom:login'
     # Model utilisé dans la vue
     model = Question
     # Nom du template à utiler . Par default utilise : "<app_name>/<model_name>_detail.html"
@@ -34,7 +39,9 @@ class DetailView(generic.DetailView):
         return Question.objects.filter(pub_date__lte=timezone.now())  # __lte = less the equal to (inférieur ou égal)
 
 
-class ResultsView(generic.DetailView):
+class ResultsView(LoginRequiredMixin, generic.DetailView):
+
+    login_url = 'authcustom:login'
     # Model utilisé dans la vue
     model = Question
     # Nom du template à utiler . Par default utilise : "<app_name>/<model_name>_detail.html"
